@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This script is displaying "Best School" 10 times
+
+for (( ; ; )); do
+    echo "Best School"
+    ((count++))
+    [ "$count" -ge 10 ] && break
+done
