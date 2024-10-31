@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # This script prints "Best School" 10 times
-#+ using while loop
+#+ using until loop
 
 i=0
 until [ "$i" -ge 10 ]; do
