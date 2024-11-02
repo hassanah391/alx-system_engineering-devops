@@ -40,4 +40,5 @@ This repository contains code examples that demonstrate essential concepts of sy
 - **Code Style**: Following [Shellcheck](https://github.com/koalaman/shellcheck) guidelines
 
 ## Author
-Hassan Ahmed [![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hassan-ahmed-77578b206/)
+Hassan Ahmed
+[![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hassan-ahmed-77578b206/)
