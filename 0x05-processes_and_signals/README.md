@@ -1,5 +1,4 @@
 # Processes and Signals
-
 This repository contains code examples that demonstrate essential concepts of system engineering and DevOps related to processes and signals, including:
 - `ps`
 - `pgrep`
@@ -31,7 +30,6 @@ This repository contains code examples that demonstrate essential concepts of sy
 * `102-zombie.c` - Creates 5 zombie processes for demonstration
 
 ## Environment
-
 - **Language**: Bash scripts
 - **Operating System**: Ubuntu 20.04 LTS
 - **Execution**:
@@ -42,5 +40,4 @@ This repository contains code examples that demonstrate essential concepts of sy
 - **Code Style**: Following [Shellcheck](https://github.com/koalaman/shellcheck) guidelines
 
 ## Author
-
-Hassan Ahmed [![Linkedin](https://image.similarpng.com/very-thumbnail/2020/07/Linkedin-logo-on-transparent-Background-PNG-.png)](https://www.linkedin.com/in/hassan-ahmed-77578b206/)
+Hassan Ahmed [![Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/hassan-ahmed-77578b206/)
