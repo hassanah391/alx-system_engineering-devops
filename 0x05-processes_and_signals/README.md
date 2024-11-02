@@ -18,10 +18,9 @@ This repository contains code examples that demonstrate essential concepts of sy
 
 ### Signal Handling
 * `4-to_infinity_and_beyond` - Creates an infinite loop with `sleep 2` (can be terminated with Ctrl-C)
-* `5-kill_me_now` - Script to terminate process 4 from a different terminal
-* `6-kill_me_now_made_easy` - Script to terminate process 4 using `pkill`
+* `5-dont_stop_me_now` - Script to terminate process 4 from a different terminal
+* `6-stop_me_if_you_can` - Script to terminate process 4 using `pkill`
 * `7-highlander` - Enhanced version of process 4 that catches Ctrl-C (SIGINT) and displays a message
-* `67-kill_me_now_made_easy` - Script to terminate process 7 (signal gets caught)
 * `8-beheaded_process` - Script to successfully terminate process 7 using `pkill`
 
 ### Advanced Examples
