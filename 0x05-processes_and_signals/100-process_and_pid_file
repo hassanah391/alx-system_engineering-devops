@@ -1,21 +1,31 @@
 #!/usr/bin/env bash
+# Script that creates PID file and handles multiple signals
 
-# Create a cleanup function to delete the PID file and exit
 cleanup() {
-    rm -f /var/run/myscript.pid
-    exit
+    # shellcheck disable=SC2154
+    rm -f "/var/run/myscript.pid"
+    exit 0
 }
 
-# Trap signals with specific messages and cleanup actions
-trap 'echo "Y U no love me?!";' SIGINT
-trap 'echo "I hate the kill command"; cleanup' SIGTERM
-trap 'cleanup' SIGQUIT
+handle_sigterm() {
+    echo "I hate the kill command"
+    cleanup
+}
 
-# Save the current process ID in a file
-echo "$$" > /var/run/myscript.pid
+handle_sigint() {
+    echo "Y U no love me?!"
+}
 
-# Infinite loop to display message every 2 seconds
+# Set up signal handlers
+trap handle_sigterm SIGTERM
+trap handle_sigint SIGINT
+trap cleanup SIGQUIT
+
+# Create PID file
+echo "$$" > "/var/run/myscript.pid"
+
+# Main loop
 while true; do
     echo "To infinity and beyond"
-    sleep 2
+    sleep 1
 done
