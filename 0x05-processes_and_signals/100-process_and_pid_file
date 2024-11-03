@@ -1,22 +1,21 @@
 #!/usr/bin/env bash
-# Infinite loop creates file with pid, catches signal, and removes file/exits:
-# Ctrl-C (SIGINT), kill (SIGTERM), and Ctrl-\ (SIGQUIT)
 
-rmfile_n_exit() {
-    rm -f /var/run/holbertonscript.pid
+# Create a cleanup function to delete the PID file and exit
+cleanup() {
+    rm -f /var/run/myscript.pid
     exit
 }
 
-# Trap signals with specific messages and clean-up actions
-trap "echo 'Y U no love me?!'" SIGINT
-trap "echo 'I hate the kill command'; rmfile_n_exit" SIGTERM
-trap "echo 'I hate the kill command'; rmfile_n_exit" SIGQUIT
+# Trap signals with specific messages and cleanup actions
+trap 'echo "Y U no love me?!";' SIGINT
+trap 'echo "I hate the kill command"; cleanup' SIGTERM
+trap 'cleanup' SIGQUIT
 
 # Save the current process ID in a file
-echo $$ > /var/run/holbertonscript.pid
+echo "$$" > /var/run/myscript.pid
 
-# Infinite loop to print a message every 2 seconds
+# Infinite loop to display message every 2 seconds
 while true; do
-    echo 'To infinity and beyond'
+    echo "To infinity and beyond"
     sleep 2
 done
