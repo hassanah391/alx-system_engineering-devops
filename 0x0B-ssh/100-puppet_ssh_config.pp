@@ -4,14 +4,16 @@
 # Requirements:
 # - must be configured to use the private key ~/.ssh/school
 # - must be configured to refuse to authenticate using a password
-file {'~/.ssh/config':
-  ensure => file,
-  mode => 0600,
-  content => @("EOF")
+
+file { '/home/hassan/.ssh/config':  # Replace 'hassan' with your username
+  ensure  => file,
+  mode    => '0600',
+  content => @(SSHCONFIG)
 Host alx_server
-    HostName 100.26.246.61
-    User ubuntu
-    IdentityFile ~/.ssh/school
-    PasswordAuthentication no
-  | EOF
+  HostName 100.26.246.61
+  User ubuntu
+  IdentityFile ~/.ssh/school
+  PasswordAuthentication no
+SSHCONFIG
+
 }
