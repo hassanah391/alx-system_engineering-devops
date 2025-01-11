@@ -1,0 +1,41 @@
+OpenSSH_8.2p1 Ubuntu-4ubuntu0.11, OpenSSL 1.1.1f  31 Mar 2020
+debug1: Reading configuration data /home/hassan/.ssh/config
+debug1: /home/hassan/.ssh/config line 1: Applying options for alx_server
+debug1: Reading configuration data /etc/ssh/ssh_config
+debug1: /etc/ssh/ssh_config line 19: include /etc/ssh/ssh_config.d/*.conf matched no files
+debug1: /etc/ssh/ssh_config line 21: Applying options for *
+debug1: Connecting to 100.26.246.61 [100.26.246.61] port 22.
+debug1: Connection established.
+debug1: identity file /home/hassan/.ssh/school type 0
+debug1: identity file /home/hassan/.ssh/school-cert type -1
+debug1: Local version string SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.11
+debug1: Remote protocol version 2.0, remote software version OpenSSH_8.2p1 Ubuntu-4ubuntu0.11
+debug1: match: OpenSSH_8.2p1 Ubuntu-4ubuntu0.11 pat OpenSSH* compat 0x04000000
+debug1: Authenticating to 100.26.246.61:22 as 'ubuntu'
+debug1: SSH2_MSG_KEXINIT sent
+debug1: SSH2_MSG_KEXINIT received
+debug1: kex: algorithm: curve25519-sha256
+debug1: kex: host key algorithm: ecdsa-sha2-nistp256
+debug1: kex: server->client cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: kex: client->server cipher: chacha20-poly1305@openssh.com MAC: <implicit> compression: none
+debug1: expecting SSH2_MSG_KEX_ECDH_REPLY
+debug1: Server host key: ecdsa-sha2-nistp256 SHA256:oV+sz1P0B6tBhTr4d1pVUnibY2ooAixaNPB4nQoPcr0
+debug1: Host '100.26.246.61' is known and matches the ECDSA host key.
+debug1: Found key in /home/hassan/.ssh/known_hosts:4
+debug1: resetting send seqnr 3
+debug1: rekey out after 134217728 blocks
+debug1: SSH2_MSG_NEWKEYS sent
+debug1: expecting SSH2_MSG_NEWKEYS
+debug1: resetting read seqnr 3
+debug1: SSH2_MSG_NEWKEYS received
+debug1: rekey in after 134217728 blocks
+debug1: Will attempt key: /home/hassan/.ssh/school RSA SHA256:8MvQOPP63hLY7IaapBRXskO0nhnWPhx5sMMc20Cj6VY explicit
+debug1: SSH2_MSG_EXT_INFO received
+debug1: kex_input_ext_info: server-sig-algs=<ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com>
+debug1: SSH2_MSG_SERVICE_ACCEPT received
+debug1: Authentications that can continue: publickey
+debug1: Next authentication method: publickey
+debug1: Offering public key: /home/hassan/.ssh/school RSA SHA256:8MvQOPP63hLY7IaapBRXskO0nhnWPhx5sMMc20Cj6VY explicit
+debug1: Authentications that can continue: publickey
+debug1: No more authentication methods to try.
+ubuntu@100.26.246.61: Permission denied (publickey).
