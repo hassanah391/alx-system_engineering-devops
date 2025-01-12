@@ -5,7 +5,7 @@
 # - must be configured to use the private key ~/.ssh/school
 # - must be configured to refuse to authenticate using a password
 
-file { '/home/hassan/.ssh/config':  # Replace 'hassan' with your username
+file { '/etc/ssh/ssh_config':
   ensure  => file,
   mode    => '0600',
   content => @(SSHCONFIG)
