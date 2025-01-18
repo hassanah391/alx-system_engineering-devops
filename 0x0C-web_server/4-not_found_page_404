@@ -1,23 +1,32 @@
 #!/usr/bin/env bash
-# Bash script that configures a new Ubuntu machine to respect below requirements
-# Requirements:
-# - Install nginx
-# - Nginx should be listening on port 80
-# - When querying Nginx at its root / with a GET request (requesting a page)
-# using curl, it must return a page that contains the string Hello World!
-# - /redirect_me is redirecting to another page.
+# Bash script to configure Nginx on Ubuntu
 
-REDIRECT301="\\\tlocation /redirect_me {\n\t\t return 301 https://google.com;\n\t}\n"
-NOTFOUND404="error_page 404 /custom_404.html;\n\\tlocation = /custom_404.html {\n\t\t root /usr/share/nginx/html;\n\t\tinternal;\n\t}\n"
-PATTERN="#error_page 404 /404.html;"
+REDIRECT301="location /redirect_me {\n\treturn 301 https://google.com;\n}\n"
+NOTFOUND404="error_page 404 /custom_404.html;\nlocation = /custom_404.html {\n\troot /usr/share/nginx/html;\n\tinternal;\n}"
 
-sudo apt-get -y update
-sudo apt-get -y install nginx
-echo "Hello World!" | sudo tee  /var/www/html/indix.html
-sudo sed -i "30i $REDIRECT301" /etc/nginx/sites-available/default
+# Update and install Nginx
+sudo apt-get update -y
+sudo apt-get install -y nginx
 
+# Create a custom index page
+echo "Hello World!" | sudo tee /var/www/html/index.html
+
+# Add redirect and custom 404 error page only if not already present
+if ! grep -q "location /redirect_me" /etc/nginx/sites-available/default; then
+    sudo sed -i "/server_name _;/a \\    $REDIRECT301" /etc/nginx/sites-available/default
+fi
+
+if ! grep -q "error_page 404" /etc/nginx/sites-available/default; then
+    sudo sed -i "/server_name _;/a \\    $NOTFOUND404" /etc/nginx/sites-available/default
+fi
+
+# Create a custom 404 error page
 echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
-sudo sed -i "s@$PATTERN@$NOTFOUND404@" /etc/nginx/sites-available/default #uncomment and replace
 
-sudo service nginx start
-sudo service nginx reload
+# Test and reload Nginx
+if sudo nginx -t; then
+    sudo systemctl restart nginx
+else
+    echo "Nginx configuration test failed."
+    exit 1
+fi
