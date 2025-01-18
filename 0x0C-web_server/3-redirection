@@ -10,7 +10,7 @@
 REDIRECT301="\\\tlocation /redirect_me {\n\t\t return 301 https://google.com;\n\t}\n"
 sudo apt-get -y update
 sudo apt-get -y install nginx
-sudo echo "Hello World!" >  /var/www/html/indix.html
+echo "Hello World!" | sudo tee  /var/www/html/indix.html
 sudo sed -i "30i $REDIRECT301" /etc/nginx/sites-available/default
 sudo service nginx start
 sudo service nginx reload
