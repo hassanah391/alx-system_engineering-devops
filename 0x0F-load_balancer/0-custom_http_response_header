@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Bash script that configures a new Ubuntu machine to respect below requirements
+# Requirements:
+# - Install nginx
+# - Nginx should be listening on port 80
+# - When querying Nginx at its root / with a GET request (requesting a page)
+# using curl, it must return a page that contains the string Hello World!
+# add a header var to the header response
+
+ADD_HEADER="\\\tadd_header X-Served-By $HOSTNAME;"
+
+sudo apt-get -y update
+sudo apt-get -y install nginx
+echo "Hello World!" | sudo tee /var/www/html/indix.html
+# add_header to file
+sudo sed -i "27i $ADD_HEADER" /etc/nginx/sites-available/default
+sudo service nginx start
+sudo service nginx reload
