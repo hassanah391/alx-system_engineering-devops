@@ -1,17 +1,45 @@
 #!/usr/bin/env bash
-# Configure HAproxy so that it send traffic to web-01 and web-02
+# Script to install and configure HAProxy for load balancing
 
-CFG="\\\nlisten appname 0.0.0.0:80\n\tmode http\n\tbalance roundrobin\n\toption httpclose\n\toption forwardfor\n\tserver 806533-web-01 100.26.246.61 check\n\tserver 806533-web-02 54.237.93.3 check\n"
-
+# Update package lists
 sudo apt-get update
-sudo apt-get -y install nginx
-# Install HAproxy for load balancing
+
+# Install HAProxy
 sudo apt-get install -y haproxy
 
-sudo sed -i "s/ENABLED=0/ENABLED=1/" /etc/default/haproxy
-sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.backup
+# Configure HAProxy configuration file
+sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOF
+global
+    log 127.0.0.1 local0
+    log 127.0.0.1 local1 notice
+    maxconn 2000
+    user haproxy
+    group haproxy
+    daemon
 
-# Configure HAproxy
-sudo sed -i "\$a $CFG" /etc/haproxy/haproxy.cfg
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    retries 3
+    maxconn 2000
+    timeout connect 5s
+    timeout client  30s
+    timeout server  30s
 
-sudo service haproxy start
+frontend http_front
+    bind *:80
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server 806533-web-01 100.26.246.61:80 check
+    server 806533-web-02 54.237.93.3:80 check
+EOF
+
+# Enable HAProxy to be started by init script
+sudo sed -i 's/ENABLED=0/ENABLED=1/' /etc/default/haproxy
+
+# Restart HAProxy to apply changes
+sudo service haproxy restart
