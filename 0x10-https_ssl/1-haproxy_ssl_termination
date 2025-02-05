@@ -1,0 +1,38 @@
+global
+    log 127.0.0.1 local0
+    log 127.0.0.1 local1 notice
+    maxconn 2000
+    user haproxy
+    group haproxy
+    daemon
+
+defaults
+    log     global
+    mode    http
+    option  httplog
+    option  dontlognull
+    retries 3
+    maxconn 2000
+    timeout connect 5s
+    timeout client  30s
+    timeout server  30s
+
+frontend http_front
+    bind *:80
+    http-request redirect scheme https code 301 if !{ ssl_fc }
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server 806533-web-01 100.26.246.61:80 check
+    server 806533-web-02 54.237.93.3:80 check
+
+frontend https_front
+    bind *:443 ssl crt /etc/haproxy/cert.pem
+    mode http
+    default_backend web_backend
+
+backend web_backend
+    balance roundrobin
+    server web1 100.26.246.61:80 check
+    server web2 54.237.93.3:80 check
