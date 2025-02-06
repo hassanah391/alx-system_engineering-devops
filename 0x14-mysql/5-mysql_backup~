@@ -1,0 +1,33 @@
+#!/bin/bash
+# A bash script that creates a MySQL dump of all databases
+#+ and compresses it into a tar.gz archive.
+
+# Check if exactly one argument (MySQL root password) is provided.
+if [ "$#" -ne 1 ]; then
+  echo "Usage: $0 <mysql_root_password>"
+  exit 1
+fi
+
+MYSQL_PASSWORD="$1"
+
+# Create a dump of all MySQL databases into backup.sql.
+mysqldump --all-databases -u root -p"$MYSQL_PASSWORD" > backup.sql
+if [ $? -ne 0 ]; then
+  echo "Error: MySQL dump failed."
+  exit 1
+fi
+
+# Generate the archive name based on the current day-month-year.
+ARCHIVE_NAME="$(date +'%d-%m-%Y').tar.gz"
+
+# Compress backup.sql into the tar.gz archive.
+tar -czf "$ARCHIVE_NAME" backup.sql
+if [ $? -ne 0 ]; then
+  echo "Error: Failed to create the archive."
+  exit 1
+fi
+
+echo "Backup completed successfully!"
+echo "Generated files:"
+echo "  - backup.sql"
+echo "  - $ARCHIVE_NAME"
