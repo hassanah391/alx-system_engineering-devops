@@ -4,26 +4,30 @@
 
 # Check if password argument is provided
 if [ $# -ne 1 ]; then
-    echo "Usage: $0 <mysql_root_password>"
+    echo "Usage: $0 <mysql_password>"
     exit 1
 fi
 
-# Generate MySQL dump with error handling
-if ! mysqldump -u root -p"$1" --all-databases > backup.sql; then
-    echo "Error: Failed to create MySQL dump" >&2
+# Store MySQL password from argument
+MYSQL_PWD=$1
+
+# Create MySQL dump of all databases
+mysqldump -u root -p"$MYSQL_PWD" --all-databases > backup.sql
+
+# Check if mysqldump was successful
+if [ $? -ne 0 ]; then
+    echo "Error: MySQL dump failed"
     exit 1
 fi
 
-# Validate the dump file
-if ! grep -q "MySQL dump" backup.sql; then
-    echo "Error: Generated backup.sql is invalid" >&2
-    rm -f backup.sql
+# Get current date in day-month-year format
+DATE=$(date +"%d-%m-%Y")
+
+# Create tar.gz archive with the backup
+tar -czf "$DATE.tar.gz" backup.sql
+
+# Check if tar command was successful
+if [ $? -ne 0 ]; then
+    echo "Error: Compression failed"
     exit 1
 fi
-
-# Create compressed archive with current date
-current_date=$(date +%d-%m-%Y)
-tar -czf "$current_date.tar.gz" backup.sql
-
-# Optional: Remove backup.sql after archiving
-rm -f backup.sql
