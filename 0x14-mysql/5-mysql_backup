@@ -23,10 +23,10 @@ fi
 # Get current date in day-month-year format
 DATE=$(date +"%d-%m-%Y")
 
-# Create tar.gz archive with the backup
-tar -czf "$DATE.tar.gz" backup.sql
+# Create gzip compressed tar archive
+tar czf "$DATE.tar.gz" backup.sql
 
-# Check if tar command was successful
+# Check if compression was successful
 if [ $? -ne 0 ]; then
     echo "Error: Compression failed"
     exit 1
