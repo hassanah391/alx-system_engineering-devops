@@ -42,7 +42,7 @@ completed_tasks = [task for task in user_tasks if task.get("completed")]
 completed_count = len(completed_tasks)
 
 # Print the progress summary and the titles of completed tasks
-print(f"Employee {employee_name} is done with tasks \
+print(f"Employee {employee_name} is done with tasks\
 ({completed_count}/{total_tasks}):")
 for task in completed_tasks:
     print(f"\t {task.get('title')}")
