@@ -49,4 +49,3 @@ if __name__ == "__main__":
     users, todos = fetch_data()
     formatted_data = format_data(users, todos)
     save_to_json(formatted_data)
-    print("Data exported successfully!")
