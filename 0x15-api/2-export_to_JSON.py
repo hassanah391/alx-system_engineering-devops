@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-For a given employee ID, returns information about his/her TODO list and exports it to a JSON file.
+For a given employee ID, returns information about his/her TODO list
+and exports it to a JSON file.
 """
 
 import json
@@ -38,7 +39,8 @@ todos = todos_response.json()
 
 # Format the data
 user_tasks = [
-    {"task": task["title"], "completed": task["completed"], "username": employee_username}
+    {"task": task["title"], "completed": task["completed"],
+     "username": employee_username}
     for task in todos
 ]
 
