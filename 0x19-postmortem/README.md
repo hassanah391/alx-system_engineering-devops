@@ -1,15 +1,23 @@
 # 🚨 Postmortem: The Great Downtime of 2025 🚨  
 
+
+
 ## Issue Summary  
 **Duration:** February 26, 2025, 14:15 - 15:45 UTC (1 hour 30 minutes)  
+
+
 
 **Impact:**  
 - Our **GitHub Stats Web Service** became **unresponsive** due to excessive load on the caching layer.  
 - **92% of API requests failed**, affecting developers tracking their GitHub contributions.  
 - Some users reported **high latency** (>30 seconds) before timeouts.  
 
+
+
 **Root Cause:**  
 A sudden surge in API requests **overwhelmed Redis**, exhausting available memory and causing cache evictions, leading to **repeated expensive database lookups** (which we don’t have… because we don’t use a database).  
+
+
 
 
 ## 📜 Timeline  
@@ -21,6 +29,8 @@ A sudden surge in API requests **overwhelmed Redis**, exhausting available memor
 - **15:10 UTC** – Found that a **sudden spike in API requests** caused massive cache churn, hammering the backend with redundant calculations.  
 - **15:30 UTC** – Increased Redis memory, tweaked eviction policy, and restarted services.  
 - **15:45 UTC** – Service restored. Users happy. Crisis averted.  
+
+
 
 
 ## 🧐 Root Cause & Resolution  
@@ -36,12 +46,16 @@ A sudden surge in API requests **overwhelmed Redis**, exhausting available memor
 - Implemented **request rate limiting** to prevent API abuse.  
 
 
+
+
 ## 🔧 Corrective & Preventative Measures  
 
 ### **Lessons Learned:**  
 1. **Monitor Redis memory usage proactively.** (Ignoring alerts = bad idea.)  
 2. **Implement better caching strategies.** (Not all keys are equal.)  
 3. **Prepare for sudden traffic spikes.** (Virality is a blessing and a curse.)  
+
+
 
 ### **🚀 Action Items:**  
 ✅ **Set Redis memory alerting at 80% usage.**  
