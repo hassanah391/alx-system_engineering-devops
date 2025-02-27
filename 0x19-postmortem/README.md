@@ -11,7 +11,6 @@
 **Root Cause:**  
 A sudden surge in API requests **overwhelmed Redis**, exhausting available memory and causing cache evictions, leading to **repeated expensive database lookups** (which we don’t have… because we don’t use a database).  
 
----
 
 ## 📜 Timeline  
 - **14:15 UTC** – Monitoring alerted us to **API latency spikes** (we ignored it for a minute—big mistake).  
@@ -23,7 +22,6 @@ A sudden surge in API requests **overwhelmed Redis**, exhausting available memor
 - **15:30 UTC** – Increased Redis memory, tweaked eviction policy, and restarted services.  
 - **15:45 UTC** – Service restored. Users happy. Crisis averted.  
 
----
 
 ## 🧐 Root Cause & Resolution  
 
@@ -37,7 +35,6 @@ A sudden surge in API requests **overwhelmed Redis**, exhausting available memor
 - Switched the eviction policy to **LFU (Least Frequently Used)** to keep hot data longer.  
 - Implemented **request rate limiting** to prevent API abuse.  
 
----
 
 ## 🔧 Corrective & Preventative Measures  
 
@@ -51,6 +48,7 @@ A sudden surge in API requests **overwhelmed Redis**, exhausting available memor
 ✅ **Implement request rate limiting per user/IP.**  
 ✅ **Optimize cache storage strategy to keep only essential data.**  
 ✅ **Add a circuit breaker to prevent excessive backend requests during cache misses.**  
+
 
 ---
 
